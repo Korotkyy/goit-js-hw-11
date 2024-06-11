@@ -135,6 +135,19 @@
     border-radius: 50%;
 }
 
+.search-form {
+display: flex;
+justify-content: center;
+}
+
+.search-form-btn {
+  color: white;
+  background-color: #4E75FF;
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
 .loader::before {
   left: auto;
     top: auto;
