@@ -9,36 +9,31 @@
     <script type="module" crossorigin src="/goit-js-hw-11/commonHelpers.js"></script>
     <link rel="modulepreload" crossorigin href="/goit-js-hw-11/assets/vendor-acbca2f4.js">
     <link rel="stylesheet" href="/goit-js-hw-11/assets/vendor-a51daae5.css">
-    <link rel="stylesheet" href="/goit-js-hw-11/assets/index-ecd894a3.css">
+    <link rel="stylesheet" href="/goit-js-hw-11/assets/index-62da9d13.css">
   </head>
   <body>
-    <div class="preloader">
+    <div class="preloader is-hidden">
       <span class="loader"></span>
     </div>
 
-  <header class="header">
-    <div class="container header-container">
-      <form class="search-form" id="search-form">
-        <input class="search-form-input" type="text" name="searchQuery" autocomplete="off"
-          placeholder = "Search images..." />
-        <button class="search-form-btn" type="submit">
-          <svg class="search" width="20" height="20" aria-label="search">
-            <use class="icon-search" href="/goit-js-hw-11/assets/symbol-defs-607fc19e.svg#icon-search"></use>
-          </svg>
-          Search
-        </button>
-      </form>
-    </div>
-    </div>
-  </header>
+    <header class="header">
+      <div class="container header-container">
+        <form class="search-form" id="search-form">
+          <input class="search-form-input" type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+          <button class="search-form-btn" type="submit">
+            <svg class="search" width="20" height="20" aria-label="search">
+              <use class="icon-search" href="/goit-js-hw-11/assets/symbol-defs-607fc19e.svg#icon-search"></use>
+            </svg>
+            Search
+          </button>
+        </form>
+      </div>
+    </header>
 
+    <section class="photo-gallery container">
+      <div class="gallery"></div>
+    </section>
 
-  <section class="photo-gallery container">
-    <div class="gallery">
-    </div>
-  </section>
-
-   
     
   </body>
 </html>
