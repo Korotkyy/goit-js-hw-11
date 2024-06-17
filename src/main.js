@@ -3,37 +3,35 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { createMarkup } from './js/render-function.js';
 import { PixabayAPI } from './js/pixabay.js';
-import SimpleLightbox from "simplelightbox";
+import SimpleLightbox from 'simplelightbox';
 
 const refs = {
   form: document.querySelector('.search-form'),
   searchInput: document.querySelector('.search-form-input'),
   gallery: document.querySelector('.gallery'),
-  body: document.querySelector('body'),
-  spinner: document.querySelector('.js-spinner'),
+  preloader: document.querySelector('.preloader'),
 };
 
-spinnerPlay();
+const pixaby = new PixabayAPI();
+const lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250 });
 
 window.addEventListener('load', () => {
-  console.log('All resources finished loading!');
-  spinnerStop();
+  console.log('Все ресурсы загружены!');
 });
-
-const pixaby = new PixabayAPI();
 
 const onSubmitClick = async (event) => {
   event.preventDefault();
   const searchQuery = event.target.elements.searchQuery;
   const search_query = searchQuery.value.trim().toLowerCase();
+
   if (!search_query) {
     clearPage();
     iziToast.error({
       color: 'red',
       position: 'topRight',
-      message: `Enter data to search!`,
+      message: 'Введите данные для поиска!',
     });
-    refs.searchInput.placeholder = 'What`re we looking for?';
+    refs.searchInput.placeholder = 'Что ищем?';
     return;
   }
 
@@ -41,7 +39,7 @@ const onSubmitClick = async (event) => {
     iziToast.warning({
       color: 'yellow',
       position: 'topRight',
-      message: `We already found images for "${search_query.toUpperCase()}. Please, enter another phrase`,
+      message: `Мы уже нашли изображения для "${search_query.toUpperCase()}". Пожалуйста, введите другую фразу.`,
     });
     return;
   }
@@ -50,14 +48,14 @@ const onSubmitClick = async (event) => {
   clearPage();
 
   try {
-    spinnerPlay();
+    showPreloader();
     const { hits, totalHits } = await pixaby.getPhotos();
 
     if (hits.length === 0) {
       iziToast.error({
         color: 'red',
         position: 'topRight',
-        message: `Sorry, there are no images matching your ${search_query}. Please try again.`,
+        message: `Извините, нет изображений, соответствующих вашему запросу ${search_query}. Пожалуйста, попробуйте снова.`,
       });
       return;
     }
@@ -66,26 +64,23 @@ const onSubmitClick = async (event) => {
     refs.gallery.insertAdjacentHTML('beforeend', markup);
     pixaby.setTotal(totalHits);
 
-    const modalLightboxGallery = new SimpleLightbox('.gallery a', {
-      captionDelay: 250,
-    });
-    modalLightboxGallery.refresh();
+    lightbox.refresh();
 
     iziToast.show({
       color: 'blue',
       position: 'topRight',
-      message: `Hooray! We found ${totalHits} images.`,
+      message: `Ура! Мы нашли ${totalHits} изображений.`,
     });
   } catch (error) {
     iziToast.error({
       color: 'red',
       position: 'topRight',
-      message: `${error.message}, 'Something went wrong!'`,
+      message: `${error.message}. Что-то пошло не так!`,
     });
 
     clearPage();
   } finally {
-    spinnerStop();
+    hidePreloader();
   }
 };
 
@@ -96,13 +91,10 @@ function clearPage() {
   refs.gallery.innerHTML = '';
 }
 
-function spinnerPlay() {
-  refs.body.classList.add('loading');
+function showPreloader() {
+  refs.preloader.classList.remove('is-hidden');
 }
 
-function spinnerStop() {
-  window.setTimeout(function () {
-    refs.body.classList.remove('loading');
-    refs.body.classList.add('loaded');
-  }, 1500);
+function hidePreloader() {
+  refs.preloader.classList.add('is-hidden');
 }
