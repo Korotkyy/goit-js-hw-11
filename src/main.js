@@ -10,6 +10,7 @@ const refs = {
   searchInput: document.querySelector('.search-form-input'),
   gallery: document.querySelector('.gallery'),
   preloader: document.querySelector('.preloader'),
+  loadMoreBtn: document.querySelector('.load-more-btn'),
 };
 
 const pixaby = new PixabayAPI();
@@ -61,10 +62,16 @@ const onSubmitClick = async (event) => {
     }
 
     const markup = createMarkup(hits);
-    refs.gallery.insertAdjacentHTML('beforeend', markup);
+    refs.gallery.innerHTML = markup;
     pixaby.setTotal(totalHits);
 
     lightbox.refresh();
+
+    if (hits.length < totalHits) {
+      showLoadMoreBtn();
+    } else {
+      hideLoadMoreBtn();
+    }
 
     iziToast.show({
       color: 'blue',
@@ -85,10 +92,12 @@ const onSubmitClick = async (event) => {
 };
 
 refs.form.addEventListener('submit', onSubmitClick);
+refs.loadMoreBtn.addEventListener('click', onLoadMoreClick);
 
 function clearPage() {
   pixaby.resetPage();
   refs.gallery.innerHTML = '';
+  hideLoadMoreBtn();
 }
 
 function showPreloader() {
@@ -97,4 +106,31 @@ function showPreloader() {
 
 function hidePreloader() {
   refs.preloader.classList.add('is-hidden');
+}
+
+function showLoadMoreBtn() {
+  refs.loadMoreBtn.classList.remove('is-hidden');
+}
+
+function hideLoadMoreBtn() {
+  refs.loadMoreBtn.classList.add('is-hidden');
+}
+
+async function onLoadMoreClick() {
+  try {
+    showPreloader();
+    const { hits } = await pixaby.getPhotos();
+
+    const markup = createMarkup(hits);
+    refs.gallery.innerHTML += markup; 
+    lightbox.refresh();
+  } catch (error) {
+    iziToast.error({
+      color: 'red',
+      position: 'topRight',
+      message: `${error.message}. Не удалось загрузить больше изображений.`,
+    });
+  } finally {
+    hidePreloader();
+  }
 }

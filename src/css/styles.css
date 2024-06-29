@@ -1,22 +1,20 @@
-/**
-  |============================
-  | include css partials with
-  | default @import url()
-  |============================
-*/
+
 @import url('./reset.css');
+
+
 @import url('./vite-promo.css');
+
+
 @import url('./header.css');
+
 
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-
   color: #242424;
   background-color: rgba(255, 255, 255, 0.87);
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -24,9 +22,6 @@
   -webkit-text-size-adjust: 100%;
 }
 
-.card-link {
-  border: 1px solid black;
-}
 
 .formInput {
   gap: 8px;
@@ -66,96 +61,16 @@
   background-color: #6C8CFF;
   border: 1px #6C8CFF solid;
 }
-.blockForAllElements {
-  width: calc((100% / 5) - 20px);
-  border: 1px black solid;
-  margin-top: 25px;
-}
-.userList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px;
-}
 
-.divForDescription {
-  display: flex;
-  flex-direction: row;
-}
 
-.blockOfInfo {
-  margin: 0 auto;
-}
-
-.imgOfUser {
-  height: 152px;
-  width: 360px;
-}
-
-.block {
-  height: 48px;
-  width: 25%;
-}
-
-.title {
-  display: flex;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: bold;
-}
-
-.info {
-  display: flex;
-  justify-content: center;
-  font-size: 12px;
-}
-
-.loader {
-  width: 48px;
-    height: 48px;
-    border: 2px solid #260fac;
-    border-radius: 50%;
-    display: block;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    animation: rotation 1s linear infinite;
-}
-
-.loader::after,
-.loader::before {
-  content: '';
-    box-sizing: border-box;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: #FF3D00;
-    width: 6px;
-    height: 6px;
-    transform: translate(150%, 150%);
-    border-radius: 50%;
-}
-
-.search-form {
-display: flex;
-justify-content: center;
-}
-
-.search-form-btn {
-  color: white;
-  background-color: #4E75FF;
-}
 .gallery {
   display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-    padding: 10px;
-    max-width: 1200px;
-    width: 100%;
-    box-sizing: border-box;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .gallery img {
@@ -168,24 +83,66 @@ justify-content: center;
   border: 1px solid black;
 }
 
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 2px solid #260fac;
+  border-radius: 50%;
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  animation: rotation 1s linear infinite;
+}
+
+.loader::after,
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #FF3D00;
+  width: 6px;
+  height: 6px;
+  transform: translate(150%, 150%);
+  border-radius: 50%;
+}
+
 .loader::before {
   left: auto;
-    top: auto;
-    right: 0;
-    bottom: 0;
-    transform: translate(-150%, -150%);
+  top: auto;
+  right: 0;
+  bottom: 0;
+  transform: translate(-150%, -150%);
 }
+
 
 .is-hidden {
   display: none;
 }
 
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
 
-  100% {
-    transform: rotate(360deg);
-  }
+.load-more-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
 }
+
+.load-more-btn:hover {
+  background-color: #0056b3;
+}
+
